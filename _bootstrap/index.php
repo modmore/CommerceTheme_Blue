@@ -195,7 +195,7 @@ if (!createObject('modSystemSetting', [
 //ctblue.footer_content
 if (!createObject('modSystemSetting', [
     'key' => 'ctblue.footer_content',
-    'value' => '<p>Theme #1 for Commerce, dubbed "Blue" even though its accent color is blue. Bootstrap based.</p>'
+    'value' => '<p>Build a custom webshop quickly, with starter pack <em>Blue</em>.</p>'
 ], 'key', false)) {
     echo "Error creating ctblue.footer_content system setting.\n";
 }
@@ -203,7 +203,7 @@ if (!createObject('modSystemSetting', [
 //ctblue.footer_bottom_row_content
 if (!createObject('modSystemSetting', [
     'key' => 'ctblue.footer_bottom_row_content',
-    'value' => '<p>This is a theme created by ModMore.</p><p>&copy All right Reversed.</p>'
+    'value' => '<p>Powered by <a href="https://modmore.com/commerce/" target="_blank" rel="noopener">Commerce</a>.</p><p>&copy; All rights reserved.</p>'
 ], 'key', false)) {
     echo "Error creating ctblue.footer_bottom_row_content system setting.\n";
 }
