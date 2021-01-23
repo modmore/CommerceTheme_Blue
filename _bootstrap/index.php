@@ -303,6 +303,24 @@ if (!createObject('modSystemSetting', [
 ], 'key', false)) {
     echo "Error creating ctblue.quick_link_06_url system setting.\n";
 }
+if (!createObject('modSystemSetting', [
+    'key' => 'footer.facebook_url',
+    'value' => 'https://facebook.com/moreformodx'
+], 'key', false)) {
+    echo "Error creating footer.facebook_url system setting.\n";
+}
+if (!createObject('modSystemSetting', [
+    'key' => 'footer.twitter_url',
+    'value' => 'https://twitter.com/modmore'
+], 'key', false)) {
+    echo "Error creating footer.twitter_url system setting.\n";
+}
+if (!createObject('modSystemSetting', [
+    'key' => 'footer.instagram_url',
+    'value' => ''
+], 'key', false)) {
+    echo "Error creating footer.instagram_url system setting.\n";
+}
 
 if (!createObject('modTemplateVar', [
     'type' => 'commerce_matrix',

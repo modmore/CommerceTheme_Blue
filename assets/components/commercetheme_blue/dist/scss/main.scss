@@ -50,10 +50,22 @@ $container-width: 1280; // in px
 $bp-medium: 720px;
 
 @import "body";
+@import "footer";
 @import "header";
 @import "header_minicart";
 @import "icons";
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
 //
 //// Assign colors to Bootstrap default
 //$primary: $theme-primary;
