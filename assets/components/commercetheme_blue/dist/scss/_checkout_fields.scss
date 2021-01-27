@@ -1,0 +1,74 @@
+
+.c-button {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 0.67em 1em;
+  border-radius: 1.5em;
+  cursor: pointer;
+  text-decoration: none;
+
+  border: 1px solid $theme-800;
+  background: $theme-800;
+  color: $theme-100;
+  margin-right: 0.5em;
+
+  &:hover, &:focus {
+    border-color: $theme-700;
+    background: $theme-900;
+    color: $theme-100;
+  }
+}
+.c-primary-button {
+  border: 1px solid $theme-complementary-800;
+  background: $theme-complementary-800;
+  color: $theme-complementary-100;
+
+  &:hover, &:focus {
+    border-color: $theme-complementary-700;
+    background: $theme-complementary-900;
+    color: $theme-complementary-100;
+  }
+}
+
+.c-field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+
+  label {
+    font-weight: 600;
+    color: $theme-900;
+    width: 150px;
+    padding-right: 0.5em;
+  }
+
+  &.c-field-checkbox label {
+    width: 100%;
+  }
+
+  input, select {
+    flex: 1;
+    //min-width: 0;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    font-size: 1em;
+    color: $gray-900;
+    border: 1px solid $gray-300;
+    box-shadow: 0 -2px 0 rgba(255, 255, 255, .15), inset 0 2px 2px rgba(0, 0, 0, 0.1);
+
+    &:focus {
+      border-color: $theme-800;
+      outline: none;
+    }
+
+    &:invalid:not(:empty) {
+      border-color: $red;
+      color: $red;
+    }
+  }
+
+  &.c-form-actions {
+    margin-bottom: 0;
+  }
+}

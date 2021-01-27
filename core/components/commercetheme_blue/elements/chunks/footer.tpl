@@ -110,7 +110,7 @@
         checkout_url:  '[[~[[++commerce.checkout_resource]]:htmlent]]',
         i18n: {
             shipping: '[[!%commerce.shipping:htmlent]]',
-            tax: '[[!%commerce.tax:htmlent]]'
+            tax: '[[!%commerce.is_inclusive:htmlent]]'
         }
     }
 </script>

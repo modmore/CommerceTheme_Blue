@@ -42,6 +42,7 @@ $gray-900: #0F172A;
 
 $black: #000;
 $white: #fff;
+$red: #b30808;
 
 /**
   Some variables used for containers/rows
@@ -50,6 +51,9 @@ $container-width: 1280; // in px
 $bp-medium: 720px;
 
 @import "body";
+@import "checkout";
+@import "checkout_fields";
+@import "checkout_methods";
 @import "footer";
 @import "header";
 @import "header_minicart";

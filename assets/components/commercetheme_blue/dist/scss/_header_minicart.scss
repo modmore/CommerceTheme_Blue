@@ -34,6 +34,7 @@
   border: 1px solid transparent;
   padding: .5em 1.25em .5em 1em;
   border-radius: 1.5em;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 
   &:hover, &:focus {
     background: $theme-300;
@@ -58,7 +59,7 @@
   position: absolute;
   right: 0.5em;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.125);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 1px solid $theme-100; // rgba(0, 0, 0, 0.125);
   width: 400px;
   z-index: 100;
@@ -110,7 +111,7 @@
   padding: 1em 1em 0.5em 1em;
   animation: loadingFade 1s infinite;
 }
-.minicart__item {
+.minicart__item, .minicart__extra {
   padding: 0.5em 1em;
   &:first-of-type {
     margin-top: 0.5em;

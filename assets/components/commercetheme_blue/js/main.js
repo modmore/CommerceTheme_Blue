@@ -451,7 +451,7 @@
 
                 let price = document.createElement('span');
                 price.classList.add('minicart__price');
-                price.innerHTML = item.total_before_tax_formatted;
+                price.innerHTML = item.total_formatted;
                 priceWrapper.appendChild(price);
 
                 content.appendChild(priceWrapper);
@@ -485,7 +485,7 @@
 
                 let label = document.createElement('span');
                 label.classList.add('minicart__extra-label');
-                label.innerHTML = CommerceConfig.i18n.tax || 'Tax';
+                label.innerHTML = CommerceConfig.i18n.tax || 'Tax Inclusive';
                 tax.appendChild(label);
 
                 let value = document.createElement('span');

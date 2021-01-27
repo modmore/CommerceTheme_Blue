@@ -1,0 +1,113 @@
+
+<div class="c-checkout">
+    <div class="c-checkout-side">
+        <div class="c-checkout-side-inner">
+            <div class="c-checkout-cart">
+                <ul class="c-checkout-cart-items">
+                    {% for item in items %}
+                        <li class="c-checkout-cart-item">
+                            {% if item.image %}
+                                <span class="item-image">
+                                    <img src="{{ item.image }}" onerror="this.style.display = 'none';" alt="{{ item.name }}">
+                                </span>
+                            {% endif %}
+                            <span class="item-info">
+                                {% if item.link %}
+                                    <a class="item-name" href="{{ item.link }}">{{ item.name }}</a>
+                                {% else %}
+                                    <span class="item-name">{{ item.name }}</span>
+                                {% endif %}
+                                <br>
+                                <span class="item-quantity-label">{{ lex('commerce.quantity') }}:</span>
+                                <span class="item-quantity">{{ item.quantity }}</span>
+                            </span>
+                            <span class="item-price">
+                                {{ item.total_formatted }}
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <ul class="c-checkout-cart-totals">
+                    {% for shipment in shipments %}
+                        <li class="c-checkout-cart-total">
+                            {% if shipment.method %}
+                                <span class="c-checkout-cart-label">
+                                    {{ shipment.method.name }}
+                                </span>
+                                <span class="c-checkout-cart-value">
+                                    {% if shipment.fee_incl_tax > 0 %}
+                                        {{ shipment.fee_incl_tax_formatted }}
+                                    {% else %}
+                                        {{ lex('commerce.free') }}
+                                    {% endif %}
+                                </span>
+                            {% else %}
+                                <span class="c-checkout-cart-label">
+                                    {{ lex('commerce.shipping') }}
+                                </span>
+                                <span class="c-checkout-cart-unknown-value">
+                                    <span class="icon">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </span>
+                                </span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+
+
+                    {% if order.tax != 0 %}
+                    <li class="c-checkout-cart-total">
+                        <span class="c-checkout-cart-label">
+                            {{ lex('commerce.is_inclusive') }}
+                        </span>
+                        <span class="c-checkout-cart-value">
+                            {{ order.tax_formatted }}
+                        </span>
+                    </li>
+                    {% endif %}
+                    <li class="c-checkout-cart-total">
+                        <span class="c-checkout-cart-label c-checkout-cart-label--total">
+                            {{ lex('commerce.total') }}
+                        </span>
+                        <span class="c-checkout-cart-value c-checkout-cart-value--total">
+                            {{ order.total_formatted }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            {% include "frontend/checkout/partial/aside.twig" %}
+        </div>
+    </div>
+
+    <div class="c-checkout-steps">
+        {% include 'frontend/response-messages.twig' %}
+
+        {% for stepKey, step in steps|filter((step, stepKey) => stepKey != 'cart' and stepKey != 'thank-you') %}
+            <div class="c-step" data-step="{{ stepKey }}">
+
+                <h2 class="c-step-title">
+                    {{ lex('checkout.step_' ~ stepKey) }}
+                </h2>
+
+                <div class="c-step-content">
+                    {% if step.allowed %}
+                        {{ include ("frontend/checkout/steps/" ~ stepKey ~ ".twig", ignore_missing = true)|raw }}
+                    {% else %}
+
+                    <div class="c-step-box">
+                        <p>
+                            <span class="icon">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </span>
+
+                            Please complete the earlier steps.
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
