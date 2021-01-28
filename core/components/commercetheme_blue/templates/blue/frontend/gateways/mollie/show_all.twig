@@ -1,0 +1,24 @@
+<div class="c-payment-method-options__container">
+    <ul class="c-payment-method-options">
+        {% for method in methods %}
+            <li class="c-payment-method-option">
+                <input
+                        type="radio"
+                        name="payment_method[{{ payment_method }}][payment_method]"
+                        value="{{ method.id }}"
+                        class="c-payment-method-option__input"
+                        id="c-pm{{ payment_method }}-option-{{ method.id }}"
+                        {% if loop.first %}checked="checked"{% endif %}
+                >
+                <label class="c-payment-method-option__label" for="c-pm{{ payment_method }}-option-{{ method.id }}">
+                    <img class="c-payment-method-option__image" src="{{ method.image.svg }}" alt="{{ method.description }}">
+                    <span class="c-payment-method-option__name">{{ method.description }}</span>
+                </label>
+
+                {% if method.issuers %}
+                    {% include "frontend/gateways/mollie/method_issuers.twig" with {issuers: method.issuers, method: payment_method} %}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>

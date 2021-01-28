@@ -1,0 +1,27 @@
+<div class="c-payment-method-issuers__container">
+    <div class="c-collapsable-box c-collapsable-box__inline-icon">
+        {% for issuer in issuers %}
+            <div class="c-collapsable-option">
+                <input
+                        type="radio"
+                        name="payment_method[{{ method }}][issuer]"
+                        value="{{ issuer.id }}"
+                        class="c-collapsable-toggle"
+                        id="c-pm{{ method }}-issuer-{{ issuer.id }}"
+                >
+                <label class="c-collapsable-option-title" for="c-pm{{ method }}-issuer-{{ issuer.id }}">
+                    <img class="c-payment-method-issuer__image" src="{{ issuer.image.svg }}" alt="{{ issuer.name }}">
+                    <span class="c-payment-method-issuer__name">{{ issuer.name }}</span>
+
+                    {# Icons are absolutely positioned #}
+                    <span class="icon icon--checked">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </span>
+                    <span class="icon icon--unchecked">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </span>
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,64 @@
+.StripeElement {
+  padding: 0.5em;
+  border-radius: 0.5em;
+  font-size: 1em;
+  color: $gray-900;
+  border: 1px solid $gray-300;
+  box-shadow: 0 -2px 0 rgba(255, 255, 255, .15), inset 0 2px 2px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  flex: 1;
+}
+
+.StripeElement--focus {
+  border-color: $theme-800;
+  outline: none;
+}
+
+.StripeElement--invalid {
+  border-color: $red;
+  color: $red;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+.c-method-gateway-form {
+  .form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+
+
+    label {
+      font-weight: 600;
+      color: $theme-900;
+      width: 150px;
+      padding-right: 0.5em;
+    }
+
+    input, select {
+      flex: 1;
+      padding: 0.5em;
+      border-radius: 0.5em;
+      font-size: 1em;
+      color: $gray-900;
+      border: 1px solid $gray-300;
+      box-shadow: 0 -2px 0 rgba(255, 255, 255, .15), inset 0 2px 2px rgba(0, 0, 0, 0.1);
+
+      &:focus {
+        border-color: $theme-800;
+        outline: none;
+      }
+
+      &:invalid:not(:empty) {
+        border-color: $red;
+        color: $red;
+      }
+    }
+  }
+}
+
+.c-payment-method-issuer__image {
+  vertical-align: middle;
+}

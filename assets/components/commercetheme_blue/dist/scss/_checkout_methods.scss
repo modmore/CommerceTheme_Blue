@@ -72,6 +72,9 @@
   font-weight: 600;
   cursor: pointer;
 }
+.c-collapsable-option-title-badge {
+  float: right;
+}
 
 .c-collapsable-option-content {
   display: none;
@@ -91,7 +94,7 @@
     padding-left: 3em;
     .icon {
       position: absolute;
-      top: 1.5em;
+      top: 1.25em;
       left: 1em;
     }
 

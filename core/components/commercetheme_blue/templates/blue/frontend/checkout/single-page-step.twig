@@ -92,11 +92,12 @@
 
                 <div class="c-step-content">
                     {% if step.allowed %}
+                        {% if not subTemplate %}{% set subTemplate = '' %}{% endif %}
                         {% set templateKey = stepKey %}
                         {% if currentKey == stepKey %}
                             {% set templateKey = templateKey ~ '_active' %}
                         {% endif %}
-                        {{ include ("frontend/checkout/steps/" ~ templateKey ~ ".twig", ignore_missing = true)|raw }}
+                        {{ include ("frontend/checkout/steps/" ~ templateKey ~ subTemplate ~ ".twig", ignore_missing = true)|raw }}
                     {% else %}
                         <div class="c-step-box">
                             <p>

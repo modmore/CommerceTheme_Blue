@@ -1,0 +1,60 @@
+<p>{{ lex('commerce.checkout_payment_summary', {'total': order.total_formatted}) }}</p>
+
+<form method="POST" action="{{ current_url }}" class="c-choose-payment-form" id="c-choose-payment-form">
+    <input type="hidden" name="choose_payment_method" value="0">
+
+
+    <div class="c-collapsable-box">
+        {% for method in payment_methods %}
+            <div class="c-collapsable-option">
+                <input type="radio" class="c-collapsable-toggle" id="payment-method-{{ method.id }}" value="{{ method.id }}" name="choose_payment_method" {% if loop.first %}checked="checked"{% endif %}>
+                <label class="c-collapsable-option-title" for="payment-method-{{ method.id }}">
+                    <span class="icon icon--checked">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </span>
+                    <span class="icon icon--unchecked">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </span>
+
+                    {{ method.name }}
+                    {% if method.price != 0 %}
+                        <span class="c-collapsable-option-title-badge">
+                            {{ method.price_formatted }} ({{ lex('commerce.total') }}: {{ method.total_formatted }})
+                        </span>
+                    {% endif %}
+                </label>
+                {% if method.description|length > 0 or method.gateway_form|length > 0 %}
+                    <div class="c-collapsable-option-content">
+
+                        {% if method.description|length > 0 %}
+                            <p class="c-method-description c-payment-method-description">{{ method.description }}</p>
+                        {% endif %}
+
+                        {% if method.gateway_form|length > 0 %}
+                            <div class="c-method-gateway-form c-payment-method-gateway-form">
+                                {% autoescape false %}
+                                    {{ method.gateway_form }}
+                                {% endautoescape %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="c-cart-error">
+                {{ lex('commerce.checkout_payment_nomethodsavailable') }}
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if module_accept_terms_enabled %}
+        <div class="c-field c-field-checkbox">
+            <label class="c-accept-terms">
+                <input type="checkbox" name="accept_terms" value="1" required>
+                {{ lex('commerce.module.acceptterms.text', {url: module_accept_terms_url}) }}
+            </label>
+        </div>
+    {% endif %}
+
+    <button type="submit" class="c-button c-primary-button">Place order and make payment</button>
+</form>
