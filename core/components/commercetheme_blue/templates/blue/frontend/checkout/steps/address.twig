@@ -1,192 +1,83 @@
-<form method="POST" action="{{ current_url }}">
-    <input type="hidden" name="add_address" value="1">
+<div class="c-step-flex c-step-flex--50/50">
+    {% if shipping_address %}
+        <div class="c-step-box">
 
-    <h3>{{ lex('commerce.shipping_address') }}</h3>
+            <h3>{{ lex('commerce.shipping_address') }}</h3>
 
-    <div class="c-collapsable-box">
-        <div class="c-collapsable-option">
-            <input type="radio" class="c-collapsable-toggle" id="shipping-address-previous" name="shipping_address" value="previous" checked>
-            <label class="c-collapsable-option-title" for="shipping-address-previous">
-                <span class="icon icon--checked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                <span class="icon icon--unchecked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                Saved address
-            </label>
-            <div class="c-collapsable-option-content">
-                <div class="c-collapsable-box c-collapsable-box__inline-icon">
-                    {% for address in previously_used_shipping %}
-                        {% include "frontend/checkout/partial/previous-address.twig" with {
-                            address: address,
-                            type: 'shipping',
-                            current_address: address_shipping_user_address
-                        } %}
-                    {% endfor %}
-                </div>
-            </div>
+            {{ shipping_address|format_address }}
+
+            {% if shipping_address.email %}
+                <p>
+                    <span class="icon" aria-label="{{ lex('commerce.email') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
+                    </span>
+                    {{ shipping_address.email }}
+                </p>
+            {% endif %}
+            {% if shipping_address.phone %}
+                <p>
+                    <span class="icon" aria-label="{{ lex('commerce.phone') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    </span>
+                    {{ shipping_address.phone }}
+                </p>
+            {% endif %}
+            {% if shipping_address.mobile %}
+                <p>
+                    <span class="icon" aria-label="{{ lex('commerce.mobile') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    </span>
+                    {{ shipping_address.mobile }}
+                </p>
+            {% endif %}
         </div>
-        <div class="c-collapsable-option">
-            <input type="radio" class="c-collapsable-toggle" id="shipping-address-new" name="shipping_address" value="new">
-            <label class="c-collapsable-option-title" for="shipping-address-new">
-                <span class="icon icon--checked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                <span class="icon icon--unchecked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                Add new address
-            </label>
-            <div class="c-collapsable-option-content">
-                {% include "frontend/checkout/partial/shipping-address-fields.twig" %}
-            </div>
+    {% endif %}
+
+    {% if billing_address %}
+        <div class="c-step-box">
+            <h3>{{ lex('commerce.billing_address') }}</h3>
+            {{ billing_address|format_address }}
+
+            {% if billing_address.email %}
+                <p>
+                    <span class="icon" aria-label="{{ lex('commerce.email') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
+                    </span>
+                    {{ billing_address.email }}
+                </p>
+            {% endif %}
+            {% if billing_address.phone %}
+                <p>
+                    <span class="icon" aria-label="{{ lex('commerce.phone') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    </span>
+                    {{ billing_address.phone }}
+                </p>
+            {% endif %}
+            {% if billing_address.mobile %}
+                <p>
+                    <span class="icon" aria-label="{{ lex('commerce.mobile') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    </span>
+                    {{ billing_address.mobile }}
+                </p>
+            {% endif %}
+            {% if billing_address.properties.vat_registration and billing_address.properties.vat_registration_valid %}
+                <p>
+                    <span class="icon" aria-label="{{ lex('commerce.vat_registration') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </span>
+                    {{ billing_address.properties.vat_registration }}
+                </p>
+            {% endif %}
         </div>
-    </div>
+    {% endif %}
+</div>
 
-    <h3>{{ lex('commerce.billing_address') }}</h3>
+<a class="c-button" href="{{ step.link }}">
+    <span class="icon">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+    </span>
 
-    <div class="c-collapsable-box">
-        <div class="c-collapsable-option">
-            <input type="radio" class="c-collapsable-toggle" id="billing-address-same" name="billing_address" value="same" checked>
-            <label class="c-collapsable-option-title" for="billing-address-same">
-                <span class="icon icon--checked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                <span class="icon icon--unchecked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                Same as shipping address
-            </label>
-        </div>
-        <div class="c-collapsable-option">
-            <input type="radio" class="c-collapsable-toggle" id="billing-address-previous" name="billing_address" value="previous">
-            <label class="c-collapsable-option-title" for="billing-address-previous">
-                <span class="icon icon--checked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                <span class="icon icon--unchecked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                Saved address
-            </label>
-            <div class="c-collapsable-option-content">
-                <div class="c-collapsable-box c-collapsable-box__inline-icon">
-                    {% for address in previously_used_billing %}
-                        {% include "frontend/checkout/partial/previous-address.twig" with {
-                            address: address,
-                            type: 'billing',
-                            current_address: address_billing_user_address
-                        } %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <div class="c-collapsable-option">
-            <input type="radio" class="c-collapsable-toggle" id="billing-address-new" name="billing_address" value="new">
-            <label class="c-collapsable-option-title" for="billing-address-new">
-                <span class="icon icon--checked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                <span class="icon icon--unchecked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                Add new address
-            </label>
-            <div class="c-collapsable-option-content">
-                {% include "frontend/checkout/partial/billing-address-fields.twig" %}
-            </div>
-        </div>
-    </div>
-
-    <div class="c-submit">
-        <button class="c-button c-primary-button">Confirm address</button>
-    </div>
-</form>
-
-
-{#    <div class="c-step-box">#}
-{#        {% if previously_used_shipping|length > 0 %}#}
-{#            <div class="c-checkout-previous-address-list">#}
-{#                {% for address in previously_used_shipping %}#}
-{#                    {% include "frontend/checkout/partial/previous-address.twig" with #}{#}#}
-{#                        address: address,#}
-{#                        type: 'shipping',#}
-{#                        current_address: address_shipping_user_address#}
-{#                    } %}#}
-{#                {% endfor %}#}
-
-{#                <div class="c-method-wrapper c-shipping-address-wrapper">#}
-{#                    <input type="radio"#}
-{#                           name="shipping_address"#}
-{#                           class="c-method-radio c-shipping-address-radio"#}
-{#                           id="shipping-address-new"#}
-{#                           value="new"#}
-{#                           {% if address_shipping_id == 'new' %}checked="checked"{% endif %}#}
-{#                    >#}
-{#                    <div class="c-method-section c-shipping-address-section">#}
-{#                        <label for="shipping-address-new">#}
-{#                            {{ lex('commerce.add_new_address') }}#}
-{#                        </label>#}
-{#                        <div class="c-method-details">#}
-{#        {% endif %}#}
-
-{#        {% include 'frontend/checkout/partial/shipping-address-fields.twig' %}#}
-
-{#        {% if previously_used_shipping|length > 0 %}#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        {% endif %}#}
-
-{#    </div>#}
-
-{#    <div class="c-step-box">#}
-{#        <h3>{{ lex('commerce.billing_address') }}</h3>#}
-
-{#        <div class="c-method-wrapper c-billing-address-wrapper">#}
-{#            <input type="radio"#}
-{#                   name="billing_address"#}
-{#                   class="c-method-radio c-billing-address-radio"#}
-{#                   id="billing-address-same"#}
-{#                   value="same"#}
-{#                   {% if address_billing_id == 'same' %}checked="checked"{% endif %}#}
-{#            >#}
-{#            <div class="c-method-section c-shipping-address-section">#}
-{#                <label for="billing-address-same">{{ lex('commerce.same_as_shipping') }}</label>#}
-{#            </div>#}
-{#        </div>#}
-
-{#        {% if previously_used_billing|length > 0 %}#}
-{#        <div class="c-checkout-previous-address-list">#}
-{#            {% for address in previously_used_billing %}#}
-{#                {% include "frontend/checkout/partial/previous-address.twig" with {#}
-{#                    address: address,#}
-{#                    type: 'billing',#}
-{#                    current_address: address_billing_user_address#}
-{#                } %}#}
-{#            {% endfor %}#}
-{#        </div>#}
-{#        {% endif %}#}
-
-{#        <div class="c-method-wrapper c-billing-address-wrapper">#}
-{#            <input type="radio"#}
-{#                   name="billing_address"#}
-{#                   class="c-method-radio c-billing-address-radio"#}
-{#                   id="billing-address-new"#}
-{#                   value="new"#}
-{#                   {% if address_billing_id == 'new' %}checked="checked"{% endif %}#}
-{#            >#}
-{#            <div class="c-method-section c-shipping-address-section">#}
-{#                <label for="billing-address-new">{{ lex('commerce.add_new_address') }}</label>#}
-{#                <div class="c-method-details">#}
-{#                    {% include 'frontend/checkout/partial/billing-address-fields.twig' %}#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-
-{#        <div class="c-submit">#}
-{#            <button class="c-button c-primary-button">{{ lex('commerce.checkout_address_confirm') }}</button>#}
-{#        </div>#}
-{#    </div>#}
+    Change address
+</a>

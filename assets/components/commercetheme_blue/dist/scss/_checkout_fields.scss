@@ -68,6 +68,27 @@
     }
   }
 
+  &.error {
+    background: $red-bg;
+    padding: 1em;
+    border-radius: 1em;
+    flex-wrap: wrap;
+
+    input, select {
+      border-color: $red;
+    }
+    label {
+      color: $red;
+    }
+  }
+
+  .c-field-error {
+    width: 100%;
+    display: block;
+    margin-top: 1em;
+    color: $red;
+  }
+
   &.c-form-actions {
     margin-bottom: 0;
   }

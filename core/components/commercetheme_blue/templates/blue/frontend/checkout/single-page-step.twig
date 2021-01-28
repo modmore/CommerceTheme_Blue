@@ -1,4 +1,3 @@
-
 <div class="c-checkout">
     <div class="c-checkout-side">
         <div class="c-checkout-side-inner">
@@ -85,7 +84,7 @@
         {% include 'frontend/response-messages.twig' %}
 
         {% for stepKey, step in steps|filter((step, stepKey) => stepKey != 'cart' and stepKey != 'thank-you') %}
-            <div class="c-step" data-step="{{ stepKey }}">
+            <div class="c-step" data-step="{{ stepKey }}" {% if currentKey == stepKey %}data-current-step{% endif %}>
 
                 <h2 class="c-step-title">
                     {{ lex('checkout.step_' ~ stepKey) }}
@@ -93,18 +92,21 @@
 
                 <div class="c-step-content">
                     {% if step.allowed %}
-                        {{ include ("frontend/checkout/steps/" ~ stepKey ~ ".twig", ignore_missing = true)|raw }}
+                        {% set templateKey = stepKey %}
+                        {% if currentKey == stepKey %}
+                            {% set templateKey = templateKey ~ '_active' %}
+                        {% endif %}
+                        {{ include ("frontend/checkout/steps/" ~ templateKey ~ ".twig", ignore_missing = true)|raw }}
                     {% else %}
+                        <div class="c-step-box">
+                            <p>
+                                <span class="icon">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </span>
 
-                    <div class="c-step-box">
-                        <p>
-                            <span class="icon">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </span>
-
-                            Please complete the earlier steps.
-                        </p>
-                    </div>
+                                Please complete the earlier steps.
+                            </p>
+                        </div>
                     {% endif %}
                 </div>
             </div>

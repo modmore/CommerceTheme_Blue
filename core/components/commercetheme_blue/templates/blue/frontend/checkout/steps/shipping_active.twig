@@ -1,0 +1,87 @@
+<form method="POST" action="{{ current_url }}" >
+    <input type="hidden" name="set_shipping_method" value="1">
+
+    {# useful for quick testing of single vs multiple shipments; create an order with multiple shipments and toggle this #}
+{#    {% set shipments = shipments|slice(1) %}#}
+{#    {% set set_shipments = set_shipments|slice(1) %}#}
+
+    {% if shipments|length > 1 %}
+        <p>{{ lex('commerce.shipping.multiple_shipments') }}</p>
+    {% endif %}
+
+
+    {% for shipment in set_shipments %}
+
+        {% if shipments|length > 1 %}
+            <h3>{{ shipment.delivery_type.name }}</h3>
+            {% if shipment.delivery_type.checkout_description %}
+                <p>{{ shipment.delivery_type.checkout_description }}</p>
+            {% endif %}
+            <p>{{ lex('commerce.shipping.multiple_shipments.products') }}</p>
+            <ul>
+                {% for item in shipment.items %}
+                    <li>{{ item.quantity }}x {{ item.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            {% if shipment.delivery_type.checkout_description %}
+                <p>{{ shipment.delivery_type.checkout_description }}</p>
+            {% endif %}
+        {% endif %}
+
+
+
+        <div class="c-collapsable-box">
+
+            {% for method in shipment.shipping_methods %}
+                <div class="c-collapsable-option">
+                    <input  type="radio"
+                            name="shipments[{{ shipment.id }}]"
+                            class="c-collapsable-toggle"
+                            id="shipping-method-{{ shipment.id }}-{{ method.id }}"
+                            value="{{ method.id }}"
+                            {% if shipment.method == method.id %}
+                                checked="checked"
+                            {% elseif shipment.method < 1 and loop.first %}
+                                checked="checked"
+                            {% endif %}
+                    >
+                    <label class="c-collapsable-option-title" for="shipping-method-{{ shipment.id }}-{{ method.id }}">
+                        <span class="icon icon--checked">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </span>
+                        <span class="icon icon--unchecked">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </span>
+
+                        {{ method.name }}
+
+                        {% if method.price != 0 %}
+                            <span class="c-collapsable-option-title-badge">
+                                {{ method.price_formatted }}
+                            </span>
+                        {% endif %}
+                    </label>
+
+                    {% if method.description|length > 0 or method.gateway_form|length > 0 %}
+                        <div class="c-collapsable-option-content">
+                            {% if method.description|length > 0 %}
+                                <p class="c-method-description c-shipping-method-description">{{ method.description }}</p>
+                            {% endif %}
+
+                            {% if method.gateway_form|length > 0 %}
+                                <div class="c-method-gateway-form c-shipping-method-gateway-form">
+                                    {% autoescape false %}
+                                        {{ method.gateway_form }}
+                                    {% endautoescape %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <button type="submit" class="c-button c-primary-button">{{ lex('commerce.checkout_shippingmethod_confirm') }}</button>
+</form>

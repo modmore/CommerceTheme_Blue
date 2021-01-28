@@ -1,0 +1,50 @@
+<div class="c-step-flex c-step-flex--50/50">
+{#    {% set shipments = shipments|slice(0,1) %}#}
+
+    {% for shipment in shipments %}
+        <div class="c-step-box">
+            <p>
+                Using
+                <span class="c-step-highlight">{{ shipment.method.name }}</span>
+
+                {% if shipments|length > 1 %}
+                    for delivering the following
+                    <span class="c-step-highlight">{{ shipment.delivery_type.name }}</span>
+                    products:
+                {% else %}
+                    for delivering
+                    <span class="c-step-highlight">{{ shipment.product_quantity }} product(s)</span>.
+                {% endif %}
+            </p>
+
+            {% if shipments|length > 1 %}
+                <ul>
+                    {% for item in items|filter(it => it.shipment == shipment.id) %}
+                        <li>{{ item.quantity }}x {{ item.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if shipment.class_key == 'MyParcelOrderShipment' and shipment.properties.delivery_date %}
+                <p>Expected delivery on <span class="c-step-highlight">{{ shipment.properties.delivery_date|date('d M') }} between {{ shipment.properties.delivery_from|slice(0,5) }} and {{ shipment.properties.delivery_until|slice(0,5) }}</span>.</p>
+            {% endif %}
+
+
+            {% if shipment.fee != 0 %}
+                <p>
+                    Shipping fee: <span class="c-step-highlight">{{ shipment.fee_incl_tax_formatted }}</span>
+                </p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+{#{{ dump(shipments) }}#}
+
+<a class="c-button" href="{{ step.link }}">
+    <span class="icon">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+    </span>
+
+    Change shipping method
+</a>

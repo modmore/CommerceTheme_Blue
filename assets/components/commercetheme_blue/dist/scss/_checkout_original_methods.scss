@@ -1,0 +1,104 @@
+$optionRadius: 1em;
+
+.c-payment-method-options, .c-shipping-method-options {
+  list-style-type: none;
+  padding: 0;
+  border-radius: $optionRadius;
+  margin-bottom: 1.5em;
+
+  .c-payment-method-issuers__container, .c-shipping-method-opts__container {
+    background: $white;
+    display: none;
+    padding: 1em;
+  }
+}
+
+.c-payment-method-option__input:checked + .c-payment-method-option__label + .c-payment-method-issuers__container,
+.c-shipping-method-option__input:checked + .c-shipping-method-option__label + .c-shipping-method-opts__container {
+  display: block;
+}
+
+.c-payment-method-issuers, .c-shipping-method-opts {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.c-payment-method-issuer, .c-payment-method-option,
+.c-shipping-method-opt, .c-shipping-method-option {
+  position: relative;
+  border: 1px solid $gray-300;
+  background: $gray-200;
+  margin-right: 1.5em;
+  overflow: hidden;
+
+  &:first-child {
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+  }
+  &:last-child {
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+  }
+}
+
+.c-payment-method-issuer__input, .c-payment-method-option__input,
+.c-shipping-method-opt__input, .c-shipping-method-option__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
+
+  .icon--checked {
+    display: none;
+  }
+  .icon--unchecked {
+    display: inline-block;
+  }
+  &:checked + {
+    .c-payment-method-issuer__label, .c-payment-method-option__label,
+    .c-shipping-method-opt__label, .c-shipping-method-option__label {
+      background: $white;
+
+      .icon--checked {
+        display: inline-block;
+      }
+      .icon--unchecked {
+        display: none;
+      }
+    }
+  }
+}
+
+.c-payment-method-issuer__label, .c-payment-method-option__label,
+.c-shipping-method-opt__label, .c-shipping-method-option__label {
+  padding: 1em;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+}
+.c-payment-method-issuer__image, .c-payment-method-option__image,
+.c-shipping-method-opt__image, .c-shipping-method-option__image {
+  margin-right: 0.5rem;
+}
+
+.c-shipping-method-opt__label > span {
+  flex: 1;
+}
+.c-shipping-method-opt__price {
+  text-align: right;
+}
+.c-shipping-method-extra-opts__label {
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: 0.5rem;
+}
+.c-shipping-method-extra-opt, .c-shipping-method-time-opt {
+  margin: 0.5rem 0;
+  border-radius: $optionRadius;
+  overflow: hidden;
+}
+

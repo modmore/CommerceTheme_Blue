@@ -1,0 +1,44 @@
+#mypa-select-date, #mypa-select-pickuplocation {
+  padding: .5em;
+  border-radius: .5em;
+  font-size: 1em;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 -2px 0 hsla(0,0%,100%,.15),inset 0 2px 2px rgba(0,0,0,.1);
+  width: 100%;
+  margin-bottom: 1em;
+
+  &:focus {
+    border-color: $theme-800;
+    outline: none;
+  }
+
+  &:invalid:not(:empty) {
+    border-color: $red;
+    color: $red;
+  }
+}
+
+.c-pickuplocation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+.c-pickuplocation__address {
+  margin-top: 0;
+  flex: 1;
+}
+.c-pickuplocation__openinghours {
+  list-style-type: none;
+  margin-left: auto;
+  color: $gray-700;
+  padding-left: 1em;
+}
+.c-pickuplocation__openinghour {
+  display: flex;
+  > span {
+    flex: 1;
+    padding: 0 0.5em;
+    font-size: 0.9em;
+  }
+}

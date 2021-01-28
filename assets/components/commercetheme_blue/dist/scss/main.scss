@@ -43,6 +43,7 @@ $gray-900: #0F172A;
 $black: #000;
 $white: #fff;
 $red: #b30808;
+$red-bg: #fdd6d6;
 
 /**
   Some variables used for containers/rows
@@ -54,6 +55,8 @@ $bp-medium: 720px;
 @import "checkout";
 @import "checkout_fields";
 @import "checkout_methods";
+@import "checkout_myparcel";
+@import "checkout_original_methods";
 @import "footer";
 @import "header";
 @import "header_minicart";
