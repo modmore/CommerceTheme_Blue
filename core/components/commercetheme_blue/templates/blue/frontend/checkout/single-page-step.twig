@@ -33,6 +33,14 @@
                             {% if shipment.method %}
                                 <span class="c-checkout-cart-label">
                                     {{ shipment.method.name }}
+
+                                    {% if shipment.method.class_key == 'ClickCollectShippingMethod' and shipment.properties.clickcollect_slot_info %}
+                                        <br>
+                                        <span style="font-weight: normal; opacity: 0.85;">
+                                            {{ shipment.properties.clickcollect_date_info.locale_day }},
+                                            {{ shipment.properties.clickcollect_slot_info.time_from|date('H:i') }}&ndash;{{ shipment.properties.clickcollect_slot_info.time_until|date('H:i') }}
+                                        </span>
+                                    {% endif %}
                                 </span>
                                 <span class="c-checkout-cart-value">
                                     {% if shipment.fee_incl_tax > 0 %}
