@@ -167,6 +167,18 @@
   }
 }
 
+.cart-item__update {
+  @extend .c-button;
+  padding: 0.5em !important;
+  line-height: 1em;
+  margin-left: 0.5em;
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+}
+
 .c-cart-coupon-form {
   display: flex;
   flex-direction: column;

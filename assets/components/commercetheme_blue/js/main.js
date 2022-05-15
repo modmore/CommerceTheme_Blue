@@ -3,11 +3,11 @@
     onReady(function () {
         initializeMatrixSelects();
 
-        cart = document.querySelector('.c-checkout-cart');
+        cart = document.querySelector('.c-cart-container');
         if (cart) {
             initializeCartEnhancements(cart);
         }
-        checkout = document.querySelector('.c-checkout-wrapper');
+        checkout = document.querySelector('.checkout-container');
         if (checkout) {
             initializeCheckoutEnhancements(checkout);
         }
@@ -57,75 +57,19 @@
 
         if (quantities.length > 0) {
             quantities.forEach(function (quantityFld) {
-                let plus = quantityFld.querySelector('.cart-item__quantityfld_plus'),
-                    minus = quantityFld.querySelector('.cart-item__quantityfld_minus'),
-                    input = quantityFld.querySelector('.cart-item__quantityfld_input'),
-                    max = input.hasAttribute('max') ? parseInt(input.getAttribute('max')) : false,
-                    updateBtn = quantityFld.querySelector('.cart-item__quantityfld_update'),
-                    cartRow = quantityFld.closest('.cart-item');
-
-                // Don't bother if there's no input
-                if (!input) {
-                    return;
+                let btn = quantityFld.querySelector('button');
+                if (btn) {
+                    btn.style.display = 'none';
                 }
 
-                if (plus) {
-                    plus.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        if (!max || input.value <= max - 2) {
-                            input.value = parseInt(input.value) + 1;
-                        }
-                        else {
-                            input.value = max;
-                            plus.setAttribute('disabled', 'disabled')
-                        }
-
-                        if (minus && input.value > 1) {
-                            minus.removeAttribute('disabled');
-                        }
-
-                        updateCart();
-                    });
-                    plus.removeAttribute('disabled');
-                }
-                if (minus) {
-                    minus.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        if (input.value > 2) {
-                            input.value = parseInt(input.value) - 1;
-                        }
-                        else {
-                            input.value = 1;
-                            minus.setAttribute('disabled', 'disabled');
-                        }
-
-                        if (plus && max && input.value < max) {
-                            plus.removeAttribute('disabled');
-                        }
-
-                        updateCart();
-                    });
-                    if (input.value > 1) {
-                        minus.removeAttribute('disabled');
-                    }
-                }
-                input.addEventListener('change', updateCart);
-                input.addEventListener('keypress', function(e) {
-                    if (e.keyCode === 13) {
-                        e.preventDefault();
-                        updateCart();
-                    }
-                });
-
-                if (updateBtn) {
-                    updateBtn.className += ' ' + 'cart-item__quantityfld_update__hidden';
+                let select = quantityFld.querySelector('select');
+                if (select) {
+                    select.addEventListener('change', function() {
+                        select.form.classList.add('commerce-loader');
+                        _request('POST', CommerceConfig.cart_url, new FormData(select.form), _refreshCart);
+                    })
                 }
 
-                function updateCart() {
-                    let oldNumbers = cartRow.querySelector('.cart-item__numbers');
-                    oldNumbers.classList.add('commerce-loader');
-                    _request('POST', CommerceConfig.cart_url, new FormData(input.form), _refreshCart);
-                }
             });
         }
 
@@ -138,7 +82,7 @@
             });
         }
 
-        let checkoutForms = cart.querySelectorAll('.cart__checkout');
+        let checkoutForms = cart.querySelectorAll('.c-cart-submit');
         checkoutForms.forEach(function(checkoutForm) {
             checkoutForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -178,27 +122,46 @@
     function initializeCheckoutEnhancements(checkout) {
         let forms = checkout.querySelectorAll('form');
         forms.forEach(function(form) {
-            form.addEventListener('submit', function(e) {
-                let target = form.getAttribute('action');
-                if (target.indexOf(CommerceConfig.checkout_url) === -1) {
-                    return;
-                }
+            let target = form.getAttribute('action');
+            if (target.indexOf(CommerceConfig.checkout_url) === -1) {
+                return;
+            }
 
+            // Do not run on the payment form; assume the gateways handle that.
+            if (form.classList.contains('c-choose-payment-form')) {
+                return;
+            }
+
+            form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 checkout.classList.add('commerce-loader');
 
                 _request('POST', form.getAttribute('action'), new FormData(form), _handleCheckoutResponse);
             });
+
+            if (form.classList.contains('step-autosubmit')) {
+                form.addEventListener('change', function() {
+                    if (form.checkValidity()) {
+                        checkout.classList.add('commerce-loader');
+                        _request('POST', form.getAttribute('action'), new FormData(form), _handleCheckoutResponse);
+                    }
+                });
+
+                let buttons = form.querySelectorAll('.step-autosubmit-hide');
+                buttons.forEach(function(btn) {
+                    btn.style.display = 'none';
+                });
+            }
         });
 
-        let steps = checkout.querySelectorAll('.checkout__steps a');
-        steps.forEach(function(btn) {
-            let target = btn.getAttribute('href');
+        let steps = checkout.querySelectorAll('a');
+        steps.forEach(function(link) {
+            let target = link.getAttribute('href');
             if (target.indexOf(CommerceConfig.checkout_url) === -1) {
                 return;
             }
 
-            btn.addEventListener('click', function(e) {
+            link.addEventListener('click', function(e) {
                 e.preventDefault();
                 checkout.classList.add('commerce-loader');
                 window.history.pushState(null, '', target);
@@ -208,6 +171,25 @@
     }
 
     function _handleCheckoutResponse(result) {
+        if (result.errors && result.errors.length > 0) {
+            let errorBox = document.getElementById('checkout-error');
+            if (errorBox) {
+                errorBox.innerText = '';
+                result.errors.forEach(function(err) {
+                    errorBox.innerText += err.message;
+                });
+
+                errorBox.classList.add('error-visible');
+
+                setTimeout(function() {
+                    let errorBox = document.getElementById('checkout-error');
+                    if (errorBox) {
+                        errorBox.classList.remove('error-visible');
+                    }
+                }, 7500)
+            }
+        }
+
         if (result.redirect) {
             // Account for GET or POST-style redirects
             if (result.redirect_method === 'GET') {
@@ -243,7 +225,7 @@
             }
         }
         else {
-            let stepWrapperDom = checkout.querySelector('.c-step-wrapper'),
+            let stepWrapperDom = checkout.querySelector('.c-checkout'),
                 responseDom = document.createRange();
             if (result.output) {
                 responseDom = responseDom.createContextualFragment(result.output);
@@ -443,7 +425,7 @@
                 priceWrapper.classList.add('minicart__price-wrapper');
 
                 if (item.discount !== 0) {
-                    let discount = document.createElement('span');
+                    let discount = document.createElement('del');
                     discount.classList.add('cart-item__subtotal_old');
                     discount.innerHTML = item.subtotal_formatted;
                     priceWrapper.appendChild(discount);

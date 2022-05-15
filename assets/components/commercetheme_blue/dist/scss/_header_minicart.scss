@@ -126,6 +126,8 @@
 .minicart__content {
   flex: 1;
   overflow: hidden;
+  display: flex;
+  align-items: start;
 }
 .minicart__name {
   color: $gray-900;
@@ -154,8 +156,15 @@
 .minicart__extra {
   font-size: 0.9rem;
   margin-top: 0.5rem;
+  display: flex;
 }
-
+.minicart__price-wrapper, .minicart__extra-value {
+  padding-left: 1em;
+  margin-left: auto;
+}
+.minicart__price-wrapper .cart-item__subtotal_old {
+  margin-right: 0.5em;
+}
 .minicart__footer {
   padding: 0.5em 1em 0.5em 0.5em;
   background: $theme-100;

@@ -1,4 +1,4 @@
-<form method="POST" action="{{ current_url }}" >
+<form method="POST" action="{{ current_url }}" class="step-autosubmit">
     <input type="hidden" name="set_shipping_method" value="1">
 
     {# useful for quick testing of single vs multiple shipments; create an order with multiple shipments and toggle this #}
@@ -83,5 +83,5 @@
         </div>
     {% endfor %}
 
-    <button type="submit" class="c-button c-primary-button">{{ lex('commerce.checkout_shippingmethod_confirm') }}</button>
+    <button type="submit" class="c-button c-primary-button step-autosubmit-hide">{{ lex('commerce.checkout_shippingmethod_confirm') }}</button>
 </form>

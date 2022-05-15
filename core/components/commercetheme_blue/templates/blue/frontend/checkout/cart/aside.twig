@@ -1,14 +1,15 @@
 {% if coupon.id %}
-    <h3>{{ lex('commerce.coupon') }}</h3>
     {% set the_discount = [] %}
     {% if coupon.discount != 0 %}{% set the_discount = the_discount|merge([coupon.discount_formatted]) %}{% endif %}
     {% if coupon.discount_percentage != 0 %}{% set the_discount = the_discount|merge([coupon.discount_percentage_formatted]) %}{% endif %}
-    <p>{{ lex('commerce.coupon_applied', {
-            code: coupon.code,
-            discount: the_discount|join(' + ')
-        }) }}</p>
 
     <form method="post" action="{{ current_url }}" class="c-cart-coupon-form">
+        <h3>{{ lex('commerce.coupon') }}</h3>
+        <p>{{ lex('commerce.coupon_applied', {
+                code: coupon.code,
+                discount: the_discount|join(' + ')
+            }) }}</p>
+
         <input type="hidden" name="remove_coupon" value="{{ coupon.code }}">
         <input type="submit" class="c-button" value="{{ lex('commerce.remove_coupon') }}">
     </form>
