@@ -40,6 +40,7 @@ $elements = [
     ],
 
     'modChunk' => [
+        'ctblue.products_blocks' => $componentPath . '/core/components/commercetheme_blue/elements/chunks/products_blocks.tpl',
         'ctblue.category_list' => $componentPath . '/core/components/commercetheme_blue/elements/chunks/category_list.tpl',
         'ctblue.item_list' => $componentPath . '/core/components/commercetheme_blue/elements/chunks/item_list.tpl',
         'ctblue.category_list_home_outer_chunk' => $componentPath . '/core/components/commercetheme_blue/elements/chunks/category_list_home_outer_chunk.tpl',

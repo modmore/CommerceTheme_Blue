@@ -1,0 +1,20 @@
+
+.container {
+  padding: 0.5rem 1rem;
+}
+
+.flex-row > * {
+  margin-bottom: 1em;
+}
+
+@media all and (min-width: $bp-medium) {
+  .container {
+    max-width: $container-width + px;
+    margin: 0 auto;
+  }
+
+  .flex-row {
+    display: flex;
+    align-items: center;
+  }
+}

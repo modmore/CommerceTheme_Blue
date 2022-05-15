@@ -122,6 +122,7 @@ $templates = [
 
 // chunk.name_here => path/to/file.tpl
 $chunks = [
+    $chunkPrefix . 'products_blocks' => $componentPath . 'elements/chunks/products_blocks.tpl',
     $chunkPrefix . 'account_form' => $componentPath . 'elements/chunks/account_form.tpl',
     $chunkPrefix . 'category_list' => $componentPath . 'elements/chunks/category_list.tpl',
     $chunkPrefix . 'category_list_chunk' => $componentPath . 'elements/chunks/category_list_chunk.tpl',

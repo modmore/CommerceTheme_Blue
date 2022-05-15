@@ -23,10 +23,12 @@
 
 .c-collapsable-option {
   position: relative;
-  border: 1px solid $gray-300;
   background: $gray-200;
   margin-right: 1.5em;
   overflow: hidden;
+}
+.c-collapsable-option .c-collapsable-option {
+  border: 1px solid $gray-300;
 }
 
 .c-collapsable-toggle {

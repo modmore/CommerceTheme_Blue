@@ -10,45 +10,4 @@
     {% autoescape false %}
         {{ output }}
     {% endautoescape %}
-
-{#    <div class="checkout-container">#}
-{#        <nav class="checkout-steps" aria-label="Checkout steps">#}
-{#            <ol class="">#}
-{#                {% for stepKey, step in steps %}#}
-{#                    <li class="checkout-step {% if stepKey == currentKey %}active{% endif %}" {% if stepKey == currentKey %}aria-current="page"{% endif %}>#}
-{#                        {% if step.allowed %}#}
-{#                            <a href="{{ step.link }}">#}
-{#                                {{ lex('checkout.step_' ~ stepKey) }}#}
-{#                            </a>#}
-{#                        {% else %}#}
-{#                            {{ lex('checkout.step_' ~ stepKey) }}#}
-{#                        {% endif %}#}
-{#                    </li>#}
-{#                {% endfor %}#}
-{#            </ol>#}
-{#        </nav>#}
-
-{#        <div class="checkout-step-container">#}
-{#            {% include 'frontend/response-messages.twig' %}#}
-
-{#        </div>#}
-{#    </div>#}
-
-{#    <div class="c-wrapper c-checkout-wrapper">#}
-{#        #}{#{% if commerce_mode == 'test' %}#}
-{#            #}{#<div class="alert alert-info">#}
-{#                #}{#{{ lex('commerce.shop_in_testmode') }}#}
-{#            #}{#</div>#}
-{#        #}{#{% endif %}#}
-
-{#        <div class="c-messages">#}
-{#            {% include 'frontend/response-messages.twig' %}#}
-{#        </div>#}
-
-{#        <div class="c-step-wrapper row">#}
-{#            {% autoescape false %}#}
-{#            {{ output }}#}
-{#            {% endautoescape %}#}
-{#        </div>#}
-{#    </div>#}
 </main>

@@ -28,8 +28,6 @@
   margin: 0;
 }
 .c-checkout-cart-item, .c-checkout-cart-total {
-  display: flex;
-  align-items: flex-start;
   padding: 0.5em 0;
   line-height: 1.5em;
 
@@ -40,8 +38,20 @@
     padding-bottom: 0;
   }
 }
+.c-checkout-cart-item__primary_info, .c-checkout-cart-total {
+  display: flex;
+  align-items: flex-start;
+}
 .c-checkout-cart-total {
   padding: 0.25em 0;
+}
+@media all and (max-width: $bp-large) {
+  .item-image {
+    display: none;
+  }
+  .c-checkout-cart-item__primary_info, .c-checkout-cart-total {
+    //flex-wrap: wrap;
+  }
 }
 .item-image {
   img {
@@ -78,15 +88,18 @@ a.item-name {
     font-size: 1.25em;
   }
 }
-.item-quantity-label, .item-quantity, .c-checkout-cart-unknown-value {
+.c-checkout-cart-item__extra_info, .c-checkout-cart-unknown-value {
   font-size: 0.9em;
   color: $gray-700;
+}
+.c-checkout-cart-item__extra_info {
+  margin: 0;
 }
 
 .c-step-title {
   display: flex;
   align-items: center;
-  margin: 0.75em 0 1em 0;
+  margin: 0.5em 0 1em 0;
 
   .icon {
     margin-right: 0.5em;
@@ -116,24 +129,11 @@ a.item-name {
   font-weight: 600;
 }
 
-.c-step-flex {
-  display: flex;
-  align-items: flex-start;
-
-  &--50\/50 {
-    > * {
-      flex-basis: 50%;
-      flex-grow: 1;
-    }
-  }
-}
-
 .c-step-box {
-  padding: 1.5em 1em;
+  padding: 1.33em 1em;
   background: #fff;
   border-radius: 1em;
   margin: 0 1.5em 1.5em 0;
-  border: 1px solid $gray-300;
 
   > :first-child {
     margin-top: 0;
@@ -164,7 +164,21 @@ a.item-name {
   margin: 1em 0;
 }
 
-@media all and (min-width: $bp-medium){
+@media all and (min-width: $bp-small) {
+  .c-step-flex {
+    display: flex;
+    align-items: flex-start;
+
+    &--50\/50 {
+      > * {
+        flex-basis: 50%;
+        flex-grow: 1;
+      }
+    }
+  }
+}
+
+@media all and (min-width: $bp-medium) {
   .c-checkout {
     display: flex;
   }
@@ -183,11 +197,12 @@ a.item-name {
     order: 1;
     flex-grow: 1;
   }
+}
 
+@media all and (min-width: $bp-large) {
   .c-step {
     display: flex;
     align-items: flex-start;
-
   }
   .c-step-title {
     min-width: 160px;
@@ -197,7 +212,7 @@ a.item-name {
 }
 
 .checkout-test {
-  background: $theme-complementary-300;
+  background: $theme-complementary-200;
   color: $theme-complementary-800;
   text-align: center;
   margin: 2em 0;

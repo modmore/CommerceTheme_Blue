@@ -1,0 +1,36 @@
+
+
+.breadcrumb {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+
+.breadcrumb-item, .breadcrumb-item > a {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: $gray-900;
+  margin-right: 0.5rem;
+  text-decoration: none;
+
+  &:hover {
+    color: $theme-900;
+  }
+}
+.breadcrumb-item.active {
+  color: $gray-500;
+  &:hover {
+    //color: $gray-600;
+  }
+}
+
+.breadcrumb-item:after {
+  content: '›';
+  display: inline;
+  font-size: 1.2em;
+  color: $gray-400;
+  padding: 0 .0725em 0 .15em;
+}
+.breadcrumb-item:last-child:after {
+  content: '';
+}

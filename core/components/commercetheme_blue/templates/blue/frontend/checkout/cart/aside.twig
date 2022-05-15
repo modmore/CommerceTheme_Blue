@@ -1,0 +1,32 @@
+{% if coupon.id %}
+    <h3>{{ lex('commerce.coupon') }}</h3>
+    {% set the_discount = [] %}
+    {% if coupon.discount != 0 %}{% set the_discount = the_discount|merge([coupon.discount_formatted]) %}{% endif %}
+    {% if coupon.discount_percentage != 0 %}{% set the_discount = the_discount|merge([coupon.discount_percentage_formatted]) %}{% endif %}
+    <p>{{ lex('commerce.coupon_applied', {
+            code: coupon.code,
+            discount: the_discount|join(' + ')
+        }) }}</p>
+
+    <form method="post" action="{{ current_url }}" class="c-cart-coupon-form">
+        <input type="hidden" name="remove_coupon" value="{{ coupon.code }}">
+        <input type="submit" class="c-button" value="{{ lex('commerce.remove_coupon') }}">
+    </form>
+{% elseif coupons_enabled %}
+    <input type="checkbox" id="c-cart-coupon-label">
+    <label for="c-cart-coupon-label">{{ lex('commerce.do_you_have_a_coupon') }}</label>
+    <form method="post" action="{{ current_url }}" class="c-cart-coupon-form">
+        <label for="c-cart-coupon">{{ lex('commerce.coupon_code') }}</label>
+        <input type="text" name="coupon" id="c-cart-coupon" value="" placeholder="{{ lex('commerce.coupon_placeholder') }}">
+        <input type="submit" class="c-button" value="{{ lex('commerce.validate_coupon') }}">
+    </form>
+{% endif %}
+
+{# You can add some guarantees or stuff here
+<h3>Our Guarantees</h3>
+<ol>
+    <li>Great customer service</li>
+    <li>Free shipping over €50</li>
+    <li>Excellent deals</li>
+</ol>
+#}

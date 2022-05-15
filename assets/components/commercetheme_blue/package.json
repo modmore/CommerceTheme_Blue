@@ -1,11 +1,20 @@
 {
-  "dependencies": {},
   "devDependencies": {
-    "autoprefixer": "^9",
-    "cssnano": "^4",
-    "gulp": "^4",
-    "gulp-postcss": "^8",
-    "gulp-sass": "^4",
-    "gulp-sourcemaps": "^2"
+    "autoprefixer": "^10",
+    "concat": "^1.0.3",
+    "parallelshell": "3.0.1",
+    "sass": "^1.32.8",
+    "uglify-js": "^3.4.9",
+    "watch": "^1.0.2"
+  },
+  "scripts": {
+    "build": "parallelshell \"npm run build:js\" \"npm run build:css\"",
+    "build:js": "echo 'Not yet implemented' && exit 1",
+    "build:css": "sass --style=compressed mgr/css:dist && echo 'Done.'",
+    "build:distcss": "sass --style=compressed dist/scss:dist/css && cp -r dist/ ./ && echo 'Done.'",
+    "watch": "parallelshell \"npm run watch:js\" \"npm run watch:css\"",
+    "watch:js": "watch \"npm run build:js\" mgr/js",
+    "watch:css": "watch \"npm run build:css\" mgr/css",
+    "watch:dist": "watch \"npm run build:distcss\" dist/scss"
   }
 }

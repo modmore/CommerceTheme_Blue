@@ -1,0 +1,245 @@
+.c-cart-container {
+  margin: 3em auto;
+  max-width: $bp-medium;
+}
+
+.c-cart {
+  padding: 2em 2em;
+  background: $white;
+  border-radius: 1em;
+  margin-bottom: 2em;
+}
+
+.cart-heading {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.cart-item {
+  border-top: 1px solid $gray-300;
+  padding: 2em 0;
+  display: flex;
+  align-items: start;
+
+  &:last-child {
+    border-bottom: 1px solid $gray-300;
+    margin-bottom: 2em;
+  }
+}
+
+.cart-item__product {
+  display: flex;
+  flex-direction: column;
+}
+.cart-item__footer {
+  margin-top: auto;
+  position: relative;
+}
+
+.cart-item__imagecontainer {
+  flex: 0 0 20%;
+  background: $gray-100;
+  border-radius: 3px;
+  margin-right: 1em;
+  overflow: hidden;
+
+  img {
+    max-width: 100%;
+    object-fit: cover;
+    max-height: 200px;
+  }
+}
+
+.cart-item__head {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+}
+
+.cart-item__name {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 600;
+  color: $gray-900;
+  margin: 0;
+  padding-right: 0.5em;
+
+  a {
+    text-decoration: none;
+    color: $gray-900;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.cart-item__quantityfld {
+  flex-basis: 20%;
+  margin-bottom: 0 !important;
+  padding: 0 0.5em;
+  text-align: center;
+
+  > select {
+    background: #fff;
+  }
+}
+.cart-item__quantity_text {
+  flex-basis: 15%;
+  font-weight: 600;
+  padding: 0 0.5em;
+  text-align: center;
+}
+.cart-item__numbers {
+  flex-basis: 20%;
+  text-align: right;
+  color: $theme-900;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding-left: 0.5em;
+}
+.cart-item__single_price {
+  //margin-left: 2rem;
+  color: $gray-700;
+}
+.cart-item__subtotal {
+  display: block;
+}
+.cart-item__subtotal_old {
+  color: $gray-700;
+  font-size: 0.9rem;
+}
+
+.cart-item__description {
+  font-size: 0.9rem;
+  color: $gray-600;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.cart-item__remove {
+  background: transparent;
+  border: none;
+  color: $theme-complementary-900;
+  cursor: pointer;
+  padding-left: 0;
+  margin-top: 0.5em;
+
+  &:hover {
+    color: $red;
+    text-decoration: underline;
+  }
+}
+
+.cart-total {
+  display: flex;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.5em 0;
+}
+.cart-total__lesser {
+  font-weight: 400;
+}
+.cart-total-label {
+
+}
+.cart-total-value {
+  margin-left: auto;
+  padding-left: 1em;
+  color: $theme-900;
+}
+.c-cart-submit {
+  margin: 2em 0;
+}
+.c-cart-continue {
+  margin-top: 2em;
+  text-align: center;
+  font-size: 0.9em;
+  a {
+    color: $theme-complementary-800;
+    text-decoration: none;
+
+    &:hover {
+      color: $theme-complementary-900;
+      text-decoration: underline;
+    }
+  }
+}
+
+.c-cart-coupon-form {
+  display: flex;
+  flex-direction: column;
+  max-width: $bp-small;
+  margin: 0 auto;
+  padding: 1.5em;
+  background: $white;
+  border-radius: 1em;
+
+  label {
+    display: block;
+    margin-bottom: 0.5em;
+  }
+  input[type=text] {
+    padding: 0.5em;
+    border-radius: 0.5em;
+    font-size: 1em;
+    color: $gray-900;
+    border: 1px solid $gray-300;
+    box-shadow: 0 -2px 0 rgba(255, 255, 255, .15), inset 0 2px 2px rgba(0, 0, 0, 0.1);
+
+    &:focus {
+      border-color: $theme-800;
+      outline: none;
+    }
+
+    &:invalid:not(:empty) {
+      border-color: $red;
+      color: $red;
+    }
+  }
+  input[type=submit] {
+    @extend .c-button;
+    margin-top: 1rem;
+    margin-right: 0 !important;
+  }
+}
+
+#c-cart-coupon-label {
+  opacity: 0;
+  width: 0;
+  height: 0;
+
+  + label {
+    display: block;
+    text-align: center;
+    font-weight: normal;
+    font-size: 0.9rem;
+    &:hover, &:focus {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  // Keyboard focus on the input shows underline on label
+  &:focus + label {
+    text-decoration: underline;
+  }
+
+  // Hide the form by default
+  + label + form {
+    display: none;
+  }
+
+  // When the radio is checked, hide the checkbox (so it takes no more space) and the label, and show the form
+  &:checked {
+    display: none;
+    + label {
+      display: none;
+    }
+    + label + form {
+      display: flex;
+    }
+  }
+}
+

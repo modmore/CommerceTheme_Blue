@@ -1,0 +1,41 @@
+<div class="cart-totals">
+
+    {% for shipment in shipments %}
+        {% if shipment.method.id > 0 %}
+            <p class="cart-total cart-total__lesser">
+                <span class="cart-total-label">{{ shipment.method.name }}</span>
+                <span class="cart-total-value">{{ shipment.fee_ex_tax_formatted }}</span>
+            </p>
+        {% else %}
+            <p class="cart-total cart-total__lesser">
+                <span class="cart-total-label">{{ lex('commerce.shipping') }}</span>
+                <span class="cart-total-value"><em>Calculated during checkout</em></span>
+            </p>
+        {% endif %}
+    {% endfor %}
+
+
+    {% if not tax_exclusive and order.tax != 0 %}
+        <p class="cart-total cart-total__lesser">
+            <span class="cart-total-label">{{ lex('commerce.taxes') }}</span>
+            <span class="cart-total-value">{{ order.tax_formatted }}</span>
+        </p>
+    {% endif %}
+
+    <p class="cart-total">
+        <span class="cart-total-label">{{ lex('commerce.subtotal') }}</span>
+        <span class="cart-total-value">{{ order.total_before_tax_formatted }}</span>
+    </p>
+
+    {% if tax_exclusive and order.tax != 0 %}
+        <p class="cart-total cart-total__lesser">
+            <span class="cart-total-label">{{ lex('commerce.taxes') }}</span>
+            <span class="cart-total-value">{{ order.tax_formatted }}</span>
+        </p>
+        <p class="cart-total">
+            <span class="cart-total-label">{{ lex('commerce.total') }}</span>
+            <span class="cart-total-value">{{ order.total_formatted }}</span>
+        </p>
+    {% endif %}
+
+</div>

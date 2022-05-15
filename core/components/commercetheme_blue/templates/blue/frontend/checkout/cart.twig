@@ -1,0 +1,35 @@
+<div class="c-cart-container">
+
+    {% include 'frontend/response-messages.twig' %}
+
+    <div class="c-cart">
+        <h2 class="cart-heading">
+            {% if order.total_quantity != 1 %}
+                {{ lex('commerce.cart_header', { 'items': order.total_quantity }) }}
+            {% else %}
+                {{ lex('commerce.cart_header_single') }}
+            {% endif %}
+        </h2>
+
+        {% if items|length > 0 %}
+            {% include 'frontend/checkout/cart/items.twig' %}
+
+            {% include 'frontend/checkout/cart/totals.twig' %}
+
+            <form method="POST" action="{{ current_url }}" class="c-submit c-cart-submit">
+                <input type="hidden" name="checkout" value="1">
+                <button class="c-button c-primary-button c-button__full" type="submit">{{ lex('commerce.checkout') }}</button>
+            </form>
+
+            <p class="c-cart-continue"><a href="{{ shop_root_url }}">{{ lex('commerce.cart.continue_shopping') }}</a></p>
+
+        {% else %}
+            <p><a href="{{ shop_root_url }}">{{ lex('commerce.cart.no_items_yet') }} {{ lex('commerce.cart.continue_shopping') }}</a></p>
+        {% endif %}
+    </div>
+
+    <div class="c-cart-optional">
+        {% include 'frontend/checkout/cart/aside.twig' %}
+    </div>
+
+</div>
