@@ -5,29 +5,13 @@
     <h3>{{ lex('commerce.shipping_address') }}</h3>
 
     <div class="c-collapsable-box">
-        <div class="c-collapsable-option">
-            <input type="radio" class="c-collapsable-toggle" id="shipping-address-previous" name="shipping_address" value="previous" {% if address_shipping_id > 1 or not address_shipping_id %}checked="checked"{% endif %}>
-            <label class="c-collapsable-option-title" for="shipping-address-previous">
-                <span class="icon icon--checked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                <span class="icon icon--unchecked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                Saved address
-            </label>
-            <div class="c-collapsable-option-content">
-                <div class="c-collapsable-box c-collapsable-box__inline-icon">
-                    {% for address in previously_used_shipping %}
-                        {% include "frontend/checkout/partial/previous-address.twig" with {
-                            address: address,
-                            type: 'shipping',
-                            current_address: address_shipping_user_address
-                        } %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+        {% for address in previously_used_shipping %}
+            {% include "frontend/checkout/partial/previous-address.twig" with {
+                address: address,
+                type: 'shipping',
+                current_address: address_shipping_user_address
+            } %}
+        {% endfor %}
         <div class="c-collapsable-option">
             <input type="radio" class="c-collapsable-toggle" id="shipping-address-new" name="shipping_address" value="new" {% if address_shipping_id == 'new' %}checked="checked"{% endif %}>
             <label class="c-collapsable-option-title" for="shipping-address-new">
@@ -49,7 +33,7 @@
 
     <div class="c-collapsable-box">
         <div class="c-collapsable-option">
-            <input type="radio" class="c-collapsable-toggle" id="billing-address-same" name="billing_address" value="same" {% if address_billing_id == 'same' %}checked="checked"{% endif %}>
+            <input type="radio" class="c-collapsable-toggle" id="billing-address-same" name="billing_address" value="same" {% if address_billing_id == 'same' or not address_billing_id %}checked="checked"{% endif %}>
             <label class="c-collapsable-option-title" for="billing-address-same">
                 <span class="icon icon--checked">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -60,29 +44,13 @@
                 Same as shipping address
             </label>
         </div>
-        <div class="c-collapsable-option">
-            <input type="radio" class="c-collapsable-toggle" id="billing-address-previous" name="billing_address" value="previous" {% if address_billing_id > 1 %}checked="checked"{% endif %}>
-            <label class="c-collapsable-option-title" for="billing-address-previous">
-                <span class="icon icon--checked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                <span class="icon icon--unchecked">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-                Saved address
-            </label>
-            <div class="c-collapsable-option-content">
-                <div class="c-collapsable-box c-collapsable-box__inline-icon">
-                    {% for address in previously_used_billing %}
-                        {% include "frontend/checkout/partial/previous-address.twig" with {
-                            address: address,
-                            type: 'billing',
-                            current_address: address_billing_user_address
-                        } %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+        {% for address in previously_used_billing %}
+            {% include "frontend/checkout/partial/previous-address.twig" with {
+                address: address,
+                type: 'billing',
+                current_address: address_billing_user_address
+            } %}
+        {% endfor %}
         <div class="c-collapsable-option">
             <input type="radio" class="c-collapsable-toggle" id="billing-address-new" name="billing_address" value="new" {% if address_billing_id == 'new' %}checked="checked"{% endif %}>
             <label class="c-collapsable-option-title" for="billing-address-new">
