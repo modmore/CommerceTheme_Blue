@@ -176,7 +176,7 @@
             if (errorBox) {
                 errorBox.innerText = '';
                 result.errors.forEach(function(err) {
-                    errorBox.innerText += err.message;
+                    errorBox.innerText += ' ' + err.message;
                 });
 
                 errorBox.classList.add('error-visible');
@@ -245,6 +245,11 @@
             // });
             checkout.classList.remove('commerce-loader');
             initializeCheckoutEnhancements(checkout);
+
+            let current = document.querySelector('[data-current-step]');
+            if (current && current.scrollIntoView) {
+                current.scrollIntoView({block: "start", inline: "nearest", behavior: "smooth"});
+            }
         }
     }
 
