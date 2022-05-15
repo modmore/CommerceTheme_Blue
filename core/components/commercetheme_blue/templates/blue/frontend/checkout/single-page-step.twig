@@ -28,12 +28,13 @@
                                 <span class="item-quantity">{{ item.quantity }}</span>
                             </p>
 
-                            {% if item.properties.firstname and item.properties.lastname %}
-                                <p class="c-checkout-cart-item__extra_info">
-                                    <span class="item-extra-label">Name:</span>
-                                    <span class="item-extra">{{ item.properties.firstname }} {{ item.properties.lastname }}</span>
-                                </p>
-                            {% endif %}
+                            {% include "frontend/checkout/partial/item-properties.twig" %}
+{#                            {% if item.properties.firstname and item.properties.lastname %}#}
+{#                                <p class="c-checkout-cart-item__extra_info">#}
+{#                                    <span class="item-extra-label">Name:</span>#}
+{#                                    <span class="item-extra">{{ item.properties.firstname }} {{ item.properties.lastname }}</span>#}
+{#                                </p>#}
+{#                            {% endif %}#}
 
                         </li>
                     {% endfor %}

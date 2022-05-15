@@ -1,1 +1,94 @@
-{% extends "frontend/checkout/single-page-step.twig" %}
+<div class="c-cart-container">
+    <div class="c-cart">
+        <h2>{{ lex('commerce.order_confirmed') }}</h2>
+        <p style="margin-bottom: 2em;">{{ lex('commerce.order_complete', {'id': order.reference}) }}</p>
+
+
+        {% include 'frontend/checkout/partial/thank-you-items.twig' %}
+
+        <div class="c-step-flex c-step-flex--50/50">
+            {% if shipping_address %}
+                <div class="">
+
+                    <h3>{{ lex('commerce.shipping_address') }}</h3>
+
+                    {{ shipping_address|format_address }}
+
+                    {% if shipping_address.email %}
+                        <p>
+                    <span class="icon" aria-label="{{ lex('commerce.email') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
+                    </span>
+                            {{ shipping_address.email }}
+                        </p>
+                    {% endif %}
+                    {% if shipping_address.phone %}
+                        <p>
+                    <span class="icon" aria-label="{{ lex('commerce.phone') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    </span>
+                            {{ shipping_address.phone }}
+                        </p>
+                    {% endif %}
+                    {% if shipping_address.mobile %}
+                        <p>
+                    <span class="icon" aria-label="{{ lex('commerce.mobile') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    </span>
+                            {{ shipping_address.mobile }}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if billing_address %}
+                <div class="">
+                    <h3>{{ lex('commerce.billing_address') }}</h3>
+                    {{ billing_address|format_address }}
+
+                    {% if billing_address.email %}
+                        <p>
+                    <span class="icon" aria-label="{{ lex('commerce.email') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
+                    </span>
+                            {{ billing_address.email }}
+                        </p>
+                    {% endif %}
+                    {% if billing_address.phone %}
+                        <p>
+                    <span class="icon" aria-label="{{ lex('commerce.phone') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    </span>
+                            {{ billing_address.phone }}
+                        </p>
+                    {% endif %}
+                    {% if billing_address.mobile %}
+                        <p>
+                    <span class="icon" aria-label="{{ lex('commerce.mobile') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    </span>
+                            {{ billing_address.mobile }}
+                        </p>
+                    {% endif %}
+                    {% if billing_address.properties.vat_registration and billing_address.properties.vat_registration_valid %}
+                        <p>
+                    <span class="icon" aria-label="{{ lex('commerce.vat_registration') }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </span>
+                            {{ billing_address.properties.vat_registration }}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="c-step-flex--50/50">
+
+        </div>
+    </div>
+
+    <div class="c-cart-optional">
+        <p class="c-cart-continue"><a href="{{ shop_root_url }}">{{ lex('commerce.cart.continue_shopping') }}</a></p>
+    </div>
+
+</div>

@@ -18,22 +18,7 @@
                         {% endif %}
                     </h3>
 
-                    {% if item.allow_update %}
-                        <div class="cart-item__quantityfld c-field">
-                            <label for="item-{{ loop.index0 }}-quantity" class="sr-only">Quantity</label>
-                            <select name="items[{{ item.id }}]" id="item-{{ loop.index0 }}-quantity">
-                                {% for i in 1..15 %}
-                                    <option value="{{ i }}" {% if i == item.quantity %}selected="selected"{%endif%}>{{ i }}</option>
-                                {% endfor %}
-                            </select>
-
-                            <button class="cart-item__update" aria-label="{{ lex('commerce.cart_update') }}">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                            </button>
-                        </div>
-                    {% else %}
-                        <span class="cart-item__quantity cart-item__quantity_text">{{ item.quantity }}&times;</span>
-                    {% endif %}
+                    <span class="cart-item__quantity cart-item__quantity_text">{{ item.quantity }}&times;</span>
 
                     <div class="cart-item__numbers">
                         {% spaceless %}
@@ -45,10 +30,9 @@
                                 {% else %}
                                     <span class="cart-item__subtotal">{{ item.total_ex_tax_formatted }}</span>
                                 {% endif %}
+
                             {% else %}
                                 {% if item.discount != 0 %}
-{#                                    <span class="cart-item__discount">{{ lex('commerce.cart.item.discount', {'discount': item.discount_formatted}) }}</span>#}
-{#                                    <br>#}
                                     <del class="cart-item__subtotal_old">{{ item.subtotal_formatted }}</del>
                                     <br>
                                     <span class="cart-item__subtotal">{{ item.total_before_tax_formatted }}</span>
@@ -65,18 +49,11 @@
                 <div class="cart-item__footer">
                     {% if item.description %}
                         <p class="cart-item__description">
-                            {#                    {{ lex('commerce.cart.product_code') }}: {{ item.sku|e }}#}
                             {{ item.description|e }}
                         </p>
                     {% endif %}
 
                     {% include "frontend/checkout/partial/item-properties.twig" %}
-
-                    {% if item.allow_update %}
-                        <button class="cart-item__remove" name="remove_item" value="{{ item.id }}">
-                            {{ lex('commerce.cart.remove_product') }}
-                        </button>
-                    {% endif %}
                 </div>
             </div>
         </div>

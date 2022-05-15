@@ -1,0 +1,10 @@
+{# Use this template to just tweak which item properties are shown as part of the cart and thank you page #}
+
+
+
+{% if item.properties.firstname and item.properties.lastname %}
+    <p class="cart-item__description">
+        Name: {{ item.properties.firstname }} {{ item.properties.lastname }}
+    </p>
+{% endif %}
+
