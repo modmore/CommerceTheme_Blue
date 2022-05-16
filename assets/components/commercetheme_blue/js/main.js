@@ -1,8 +1,6 @@
 (function() {
     let cart, checkout;
     onReady(function () {
-        initializeMatrixSelects();
-
         cart = document.querySelector('.c-cart-container');
         if (cart) {
             initializeCartEnhancements(cart);
@@ -32,6 +30,69 @@
                 // at this point if all checkout-related assets are loaded, so we're going with a standard
                 // synchronous submit.
                 minicartCheckout.classList.add('commerce-loader');
+            });
+        }
+
+        let addToCart = document.querySelector('form.add-to-cart');
+        if (addToCart) {
+            addToCart.addEventListener('submit', function(e) {
+                e.preventDefault();
+                addToCart.classList.add('commerce-loader');
+                _request(
+                    'POST',
+                    addToCart.getAttribute('action'),
+                    new FormData(addToCart),
+                    function(result) {
+                        addToCart.classList.remove('commerce-loader');
+                        _updateMiniCartResponse(result);
+
+                        if (result.errors && result.errors.length > 0) {
+                            let errorBox = document.getElementById('add-to-cart-error');
+                            if (errorBox) {
+                                errorBox.innerText = '';
+                                result.errors.forEach(function(err) {
+                                    errorBox.innerText += ' ' + err.message;
+                                });
+
+                                errorBox.classList.add('error-visible');
+
+                                setTimeout(function() {
+                                    let errorBox = document.getElementById('add-to-cart-error');
+                                    if (errorBox) {
+                                        errorBox.classList.remove('error-visible');
+                                    }
+                                }, 7500)
+                            }
+                        }
+                        else if (result.message) {
+                            let successBox = document.getElementById('add-to-cart-success');
+                            if (successBox) {
+                                successBox.innerHTML = '';
+
+                                let msg = document.createElement('span');
+                                msg.innerText = result.message;
+                                successBox.appendChild(msg);
+
+                                let link = document.createElement('a');
+                                link.setAttribute('href', window.CommerceConfig.cart_url);
+                                link.classList.add('c-button');
+                                link.innerText = 'View Cart'; // @todo
+                                successBox.appendChild(link);
+
+                                successBox.classList.add('success-visible');
+
+                                setTimeout(function() {
+                                    let successBox = document.getElementById('add-to-cart-success');
+                                    if (successBox) {
+                                        successBox.classList.remove('success-visible');
+                                    }
+                                }, 7500)
+                            }
+
+                            addToCart.reset();
+                        }
+                    }
+                );
             });
         }
     });
@@ -253,114 +314,6 @@
         }
     }
 
-
-
-    function initializeMatrixSelects() {
-        let matrixSelector = document.querySelectorAll('.add-to-cart__matrix');
-
-        if (matrixSelector.length > 0) {
-            matrixSelector.forEach(function (matrixForm) {
-                let priceDisplay = matrixForm.querySelector('.add-to-cart__price'),
-                    stockDisplay = matrixForm.querySelector('.add-to-cart__stock'),
-                    skuDisplay = matrixForm.querySelector('.add-to-cart__sku'),
-                    rowSelect = matrixForm.querySelector('.add-to-cart__matrix_rowselect'),
-                    colSelect = matrixForm.querySelector('.add-to-cart__matrix_colselect'),
-                    colOptions = colSelect.querySelectorAll('option'),
-
-                    // Note: global search outside the matrix
-                    imageDisplay = document.querySelector('.product-image__img');
-
-                colOptions.forEach(function(colOpt) {
-                    let name = colOpt.getAttribute('data-enhanced-name');
-                    if (name !== '') {
-                        colOpt.innerHTML = name;
-                    }
-                });
-
-                updateColumnOptions();
-                rowSelect.addEventListener('change', updateColumnOptions);
-                colSelect.addEventListener('change', updateSelectedProduct);
-
-                function updateColumnOptions() {
-                    let selectedRow = rowSelect.value,
-                        targetClass = 'matrix-row-' + selectedRow + '-product',
-                        firstAvlOpt = '';
-
-                    colOptions.forEach(function (colOpt, index) {
-                        if (colOpt.value === '' || colOpt.className.indexOf(targetClass) !== -1) {
-                            colOpt.style.display = 'initial';
-                            if (firstAvlOpt === '') {
-                                firstAvlOpt = colOpt.value;
-                            }
-                        }
-                        else {
-                            colOpt.style.display = 'none';
-                        }
-                    });
-                    colSelect.value = firstAvlOpt;
-                    updateSelectedProduct();
-                }
-
-                function updateSelectedProduct() {
-                    let opt = colSelect.options[colSelect.selectedIndex];
-                    if (opt) {
-                        if (priceDisplay) {
-                            priceDisplay.innerHTML = opt.getAttribute('data-price-formatted');
-                        }
-                        if (stockDisplay) {
-                            stockDisplay.innerHTML = opt.getAttribute('data-stock');
-                        }
-                        if (skuDisplay) {
-                            skuDisplay.innerHTML = opt.getAttribute('data-sku');
-                        }
-                        if (imageDisplay) {
-                            let image = opt.getAttribute('data-image');
-                            if (!image) {
-                                image = imageDisplay.getAttribute('data-original-image');
-                            }
-                            if (image !== imageDisplay.src) {
-                                let fakeImg = document.createElement('img');
-                                fakeImg.addEventListener('load', function () {
-                                    imageDisplay.src = this.src;
-                                    this.remove();
-                                });
-                                fakeImg.src = image;
-                            }
-                        }
-                    }
-                }
-
-                matrixForm.addEventListener('submit', function(e) {
-                    let target = matrixForm.getAttribute('action');
-                    if (target.indexOf(CommerceConfig.cart_url) === -1) {
-                        return;
-                    }
-                    e.preventDefault();
-
-                    matrixForm.classList.add('commerce-loader');
-
-                    _request('POST', target, new FormData(matrixForm), function(response) {
-                        matrixForm.classList.remove('commerce-loader');
-
-                        _updateMiniCartResponse(response);
-
-                        setTimeout(function() {
-                            let minicart = document.getElementById('minicart-header-toggler'),
-                                minicartCheckout = document.querySelector('.minicart__checkout');
-                            if (minicart && !minicart.checked) {
-                                minicart.checked = true;
-
-                                if (minicartCheckout) {
-                                    minicartCheckout.focus();
-                                }
-                            }
-                        }, 15);
-                    });
-                });
-
-            });
-        }
-    }
 
     function updateMiniCart() {
         _request('GET', CommerceConfig.cart_url, {}, _updateMiniCartResponse);
