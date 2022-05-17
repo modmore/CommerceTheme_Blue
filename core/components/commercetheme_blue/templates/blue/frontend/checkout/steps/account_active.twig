@@ -1,0 +1,46 @@
+    <div class="c-step-box">
+        <p>{{ lex('commerce.account.welcome_back.login') }}</p>
+
+        <form action="[[~[[++commerce.login_resource]]]]" method="post">
+            <input type="hidden" name="service" value="login">
+            <input type="hidden" name="returnUrl" value="{{ current_url }}">
+
+            <div class="c-field">
+                <label for="c-login-username">[[%username]]</label>
+                <input type="text" name="username" id="c-login-username">
+            </div>
+            <div class="c-field">
+                <label for="c-login-password">[[%password]]</label>
+                <input type="password" name="password" id="c-login-password">
+            </div>
+            <div class="c-field c-field-checkbox">
+                <label for="c-login-rememberme">
+                    <input type="checkbox" id="c-login-rememberme" name="rememberme" value="1" checked>
+                    {{ lex('commerce.account.remember_me') }}
+                </label>
+            </div>
+
+            <div class="c-field c-form-actions">
+                <button type="submit" class="c-button c-primary-button">{{ lex('commerce.account.welcome_back.submit') }}</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="c-step-box">
+
+        <h2>{{ lex('commerce.account.new', { name: '[[++site_name]]' }) }}</h2>
+        {% if allow_guest_checkout %}
+            <p>{{ lex('commerce.account.new.choose') }}</p>
+
+            <form action="{{ current_url }}" method="post">
+                <input type="hidden" name="set_guest_checkout" value="1">
+                <button type="submit" class="c-button c-primary-button">{{ lex('commerce.account.new.as_guest') }}</button>
+                <a href="[[~[[++commerce.register_resource]]]]" class="c-button c-primary-button">{{ lex('commerce.account.new.create_account') }}</a>
+            </form>
+        {% else %}
+            <p>{{ lex('commerce.account.new.account_required') }}</p>
+            <a href="[[~[[++commerce.register_resource]]]]" class="c-button c-primary-button">{{ lex('commerce.account.new.create_account') }}</a>
+        {% endif %}
+    </div>
+
+

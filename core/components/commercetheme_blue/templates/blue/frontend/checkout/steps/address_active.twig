@@ -13,7 +13,7 @@
             } %}
         {% endfor %}
         <div class="c-collapsable-option">
-            <input type="radio" class="c-collapsable-toggle" id="shipping-address-new" name="shipping_address" value="new" {% if address_shipping_id == 'new' %}checked="checked"{% endif %}>
+            <input type="radio" class="c-collapsable-toggle" id="shipping-address-new" name="shipping_address" value="new" {% if address_shipping_id == 'new' or previously_used_shipping|length < 1 %}checked="checked"{% endif %}>
             <label class="c-collapsable-option-title" for="shipping-address-new">
                 <span class="icon icon--checked">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>

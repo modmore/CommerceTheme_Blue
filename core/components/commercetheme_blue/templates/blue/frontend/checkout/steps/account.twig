@@ -9,48 +9,22 @@
         </p>
     </div>
 {% else %}
-    <div class="c-step-flex c-step-flex--50/50">
-        <div class="c-step-box">
-            <h2>{{ lex('commerce.account.welcome_back') }}</h2>
-            <p>{{ lex('commerce.account.welcome_back.login') }}</p>
+    <div class="c-step-box">
+        <p>
+            <span class="icon">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </span>
 
-            <form action="[[~[[++commerce.login_resource]]]]" method="post">
-                <input type="hidden" name="service" value="login">
-                <input type="hidden" name="returnUrl" value="{{ current_url }}">
-
-                <div class="c-field">
-                    <label for="c-login-username">[[%username]]</label>
-                    <input type="text" name="username" id="c-login-username">
-                </div>
-                <div class="c-field">
-                    <label for="c-login-password">[[%password]]</label>
-                    <input type="password" name="password" id="c-login-password">
-                </div>
-                <div class="c-field c-field-checkbox">
-                    <label for="c-login-rememberme">
-                        <input type="checkbox" id="c-login-rememberme" name="rememberme" value="1">
-                        {{ lex('commerce.account.remember_me') }}
-                    </label>
-                </div>
-
-                <div class="c-field c-form-actions">
-                    <button type="submit" class="c-button c-primary-button">{{ lex('commerce.account.welcome_back.submit') }}</button>
-                </div>
-            </form>
-        </div>
-        <div class="c-step-box"><h2>{{ lex('commerce.account.new', { name: '[[++site_name]]' }) }}</h2>
-            {% if allow_guest_checkout %}
-                <p>{{ lex('commerce.account.new.choose') }}</p>
-
-                <form action="{{ current_url }}" method="post">
-                    <input type="hidden" name="set_guest_checkout" value="1">
-                    <button type="submit" class="c-button c-primary-button">{{ lex('commerce.account.new.as_guest') }}</button>
-                    <a href="[[~[[++commerce.register_resource]]]]" class="c-button c-primary-button">{{ lex('commerce.account.new.create_account') }}</a>
-                </form>
-            {% else %}
-                <p>{{ lex('commerce.account.new.account_required') }}</p>
-                <a href="[[~[[++commerce.register_resource]]]]" class="c-button c-primary-button">{{ lex('commerce.account.new.create_account') }}</a>
-            {% endif %}
-        </div>
+            Checking out as guest.
+        </p>
     </div>
+
+    <a class="c-button" href="{{ step.link }}">
+        <span class="icon">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+        </span>
+
+        Login or register
+    </a>
+
 {% endif %}
