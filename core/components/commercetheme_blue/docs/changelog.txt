@@ -1,0 +1,4 @@
+++ CommerceTheme Blue 1.0.0-rc1
+++ Released on 2022-
+++++++++++++++++++++++++++
+- First packaged release
