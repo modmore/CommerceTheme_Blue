@@ -255,6 +255,7 @@ a.item-name {
 
 #checkout-error, #add-to-cart-error {
   transition: all .75s cubic-bezier(.68,-0.55,.27,1.55);
+  box-shadow: 0 1px 3px rgba(179, 8, 8, 0.2);
   position: sticky;
   bottom: -100%;
   text-align: center;
@@ -275,6 +276,7 @@ a.item-name {
 }
 #add-to-cart-success {
   transition: all .75s cubic-bezier(.68,-0.55,.27,1.55);
+  box-shadow: 0 1px 3px rgba(91, 33, 182, 0.2);
   position: sticky;
   bottom: -100%;
   text-align: center;

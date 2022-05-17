@@ -35,24 +35,35 @@
   }
 }
 
+@media all and (min-width: $bp-small) {
+  .c-field {
+    display: flex;
+    align-items: baseline;
+  }
+  input, select, textarea {
+    flex: 1;
+  }
+}
+
 .c-field {
-  display: flex;
-  align-items: center;
   margin-bottom: 1em;
 
   label {
-    font-weight: 600;
+    display: block;
+    font-weight: 500;
     color: $gray-900;
     width: 150px;
     padding-right: 0.5em;
+    margin: 0.5em 0;
   }
 
   &.c-field-checkbox label {
     width: 100%;
   }
 
-  input, select {
-    flex: 1;
+  input, select, textarea {
+    width: 100%;
+    box-sizing: border-box;
     //min-width: 0;
     padding: 0.5em;
     border-radius: 0.5em;
@@ -70,6 +81,9 @@
       border-color: $red;
       color: $red;
     }
+  }
+  input[type=checkbox], input[type=radio] {
+    width: auto;
   }
 
   &.error {

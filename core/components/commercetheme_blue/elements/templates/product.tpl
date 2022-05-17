@@ -42,15 +42,15 @@
                 <fieldset class="product-options">
                     <legend class="product-options-legend">Ticket Details</legend>
 
-                    <div class="product-options-field">
+                    <div class="c-field">
                         <label for="option-firstname">First name</label>
                         <input type="text" name="firstname" id="option-firstname">
                     </div>
-                    <div class="product-options-field">
+                    <div class="c-field">
                         <label for="option-lastname">Last name</label>
                         <input type="text" name="lastname" id="option-lastname">
                     </div>
-                    <div class="product-options-field">
+                    <div class="c-field">
                         <label for="option-pronouns">Pronouns</label>
                         <select name="pronouns" id="option-pronouns">
                             <option>he / him</option>
@@ -58,7 +58,7 @@
                             <option>they / them</option>
                         </select>
                     </div>
-                    <div class="product-options-field">
+                    <div class="c-field">
                         <label for="option-dietary">Dietary requests</label>
                         <textarea name="dietary" id="option-dietary" rows="5"></textarea>
                     </div>
