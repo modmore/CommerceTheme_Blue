@@ -28,6 +28,10 @@ return [
 //        'area' => 'templates',
 //        'value' => 0,
 //    ],
+    'assets_url' => [
+        'area' => 'footer',
+        'value' => '{base_url}assets/components/commercetheme_blue/',
+    ],
     'product_template' => [
         'area' => 'templates',
         'value' => 0,
