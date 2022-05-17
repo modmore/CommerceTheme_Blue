@@ -31,13 +31,6 @@
                             </p>
 
                             {% include "frontend/checkout/partial/item-properties.twig" %}
-{#                            {% if item.properties.firstname and item.properties.lastname %}#}
-{#                                <p class="c-checkout-cart-item__extra_info">#}
-{#                                    <span class="item-extra-label">Name:</span>#}
-{#                                    <span class="item-extra">{{ item.properties.firstname }} {{ item.properties.lastname }}</span>#}
-{#                                </p>#}
-{#                            {% endif %}#}
-
                         </li>
                     {% endfor %}
                 </ul>
@@ -79,14 +72,14 @@
 
 
                     {% if order.tax != 0 %}
-                    <li class="c-checkout-cart-total">
+                        <li class="c-checkout-cart-total">
                         <span class="c-checkout-cart-label">
                             {{ lex('commerce.is_inclusive') }}
                         </span>
-                        <span class="c-checkout-cart-value">
+                            <span class="c-checkout-cart-value">
                             {{ order.tax_formatted }}
                         </span>
-                    </li>
+                        </li>
                     {% endif %}
                     <li class="c-checkout-cart-total">
                         <span class="c-checkout-cart-label c-checkout-cart-label--total">
@@ -118,9 +111,12 @@
                         {% if not subTemplate %}{% set subTemplate = '' %}{% endif %}
                         {% set templateKey = stepKey %}
                         {% if currentKey == stepKey %}
+                            {% if subTemplate|length > 0 %}
+                                {% set templateKey = templateKey ~ '_' ~ subTemplate %}
+                            {% endif %}
                             {% set templateKey = templateKey ~ '_active' %}
                         {% endif %}
-                        {{ include ("frontend/checkout/steps/" ~ templateKey ~ subTemplate ~ ".twig", ignore_missing = true)|raw }}
+                        {{ include ("frontend/checkout/steps/" ~ templateKey ~ ".twig", ignore_missing = true)|raw }}
                     {% else %}
                         <div class="c-step-box">
                             <p>
