@@ -36,7 +36,7 @@
                 &displayStart=`0`
                 &tpl=`@INLINE <li[[+classes]]><a href="[[+link]]" [[+attributes]] class="nav-link">[[+menutitle]]</a>[[+wrapper]]</li>`
             ]]
-            
+
             <ul class="nav-wrapper nav--right">
                 [[!+modx.user.id:lte=`0`:then=`
                     <li class="nav-item">
@@ -50,7 +50,7 @@
                     </li>
                 `:else=`
                     <li class="nav-item">
-                        <a href="[[~[[++[[++ctblue.account_page_id]]]]]]" class="nav-link">
+                        <a href="[[~[[++ctblue.account_page_id]]]]" class="nav-link">
                             [[pdoField?
                                 &id=`[[++ctblue.account_page_id]]`
                                 &field=`menutitle`

@@ -30,6 +30,12 @@ body {
     background: $theme-50;
     color: $theme-900;
   }
+
+  img {
+    max-width: 200px;
+    max-height: 75px;
+    vertical-align: middle;
+  }
 }
 .nav--inner {
   background: $theme-100;
