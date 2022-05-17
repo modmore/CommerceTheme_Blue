@@ -5,7 +5,7 @@
         <div class="cart-item" id="cart-item-{{ item.id }}">
             <div class="cart-item__imagecontainer">
                 {% if item.image %}
-                    <img src="/{{ item.image }}" class="cart-item__image" alt="{{ item.name }}" onerror="this.style.display = 'none';">
+                    <img src="{{ item.image }}" class="cart-item__image" alt="{{ item.name }}" onerror="this.style.display = 'none';">
                 {% endif %}
             </div>
             <div class="cart-item__product">

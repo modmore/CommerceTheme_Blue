@@ -6,11 +6,13 @@
                     {% for item in items %}
                         <li class="c-checkout-cart-item">
                             <div class="c-checkout-cart-item__primary_info">
+                                {# If you want to, you can show the item image. It looks cleaner without, though.
+
                                 {% if item.image %}
                                     <span class="item-image">
-                                        <img src="/{{ item.image }}" onerror="this.style.display = 'none';" alt="{{ item.name }}" >
+                                        <img src="{{ item.image }}" onerror="this.style.display = 'none';" alt="{{ item.name }}" >
                                     </span>
-                                {% endif %}
+                                {% endif %} #}
                                 <span class="item-info">
                                     {% if item.link %}
                                         <a class="item-name" href="{{ item.link }}">{{ item.name }}</a>

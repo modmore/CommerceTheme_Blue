@@ -4,7 +4,13 @@
         {% if shipment.method.id > 0 %}
             <p class="cart-total cart-total__lesser">
                 <span class="cart-total-label">{{ shipment.method.name }}</span>
-                <span class="cart-total-value">{{ shipment.fee_ex_tax_formatted }}</span>
+                <span class="cart-total-value">
+                    {% if shipment.fee == 0 %}
+                        {{ lex('commerce.free') }}
+                    {% else %}
+                        {{ shipment.fee_ex_tax_formatted }}
+                    {% endif %}
+                </span>
             </p>
         {% else %}
             <p class="cart-total cart-total__lesser">
