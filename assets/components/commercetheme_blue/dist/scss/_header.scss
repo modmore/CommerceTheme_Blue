@@ -125,6 +125,15 @@ body {
   //margin-top: 1rem;
 }
 
+.nav--inner {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  overflow-y: scroll;
+  padding-bottom: 2em;
+  box-sizing: border-box;
+}
 @media all and (min-width: $bp-medium) {
   body {
     padding-top: 0;
@@ -146,6 +155,11 @@ body {
     align-items: center;
     justify-content: space-between;
     background: transparent;
+
+    position: initial;
+    padding-bottom: 0;
+    height: auto;
+    overflow-y: initial;
   }
   .collapse {
     display: flex;
