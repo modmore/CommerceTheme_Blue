@@ -1,4 +1,11 @@
-++ CommerceTheme Blue 1.0.0-rc1
-++ Released on 2022-
-++++++++++++++++++++++++++
+CommerceTheme Blue 1.0.1-pl
+---------------------------
+Released on 2022-07-08
+
+- Replace {% spaceless %} with {% apply spaceless %} for Commerce 1.3 compatibility
+
+CommerceTheme Blue 1.0.0-pl
+---------------------------
+Released on 2022-07-08
+
 - First packaged release
